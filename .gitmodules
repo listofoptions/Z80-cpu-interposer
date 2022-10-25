@@ -1,0 +1,9 @@
+[submodule "libraries/Z80-CPU-for-KiCAD"]
+	path = libraries/Z80-CPU-for-KiCAD
+	url = https://github.com/flypie/Z80-CPU-for-KiCAD.git
+[submodule "libraries/teensy_library"]
+	path = libraries/teensy_library
+	url = https://github.com/XenGi/teensy_library.git
+[submodule "libraries/teensy.pretty"]
+	path = libraries/teensy.pretty
+	url = https://github.com/XenGi/teensy.pretty.git
