@@ -9,6 +9,7 @@
     (date "2022-10-21")
     (rev "1030211022")
     (company "LISTOFOPTIONS")
+    (comment 4 "ram is paged in on pages 128..256, and is in upper memory")
   )
 
   (lib_symbols

@@ -9,6 +9,10 @@
     (date "2022-10-21")
     (rev "1030211022")
     (company "LISTOFOPTIONS")
+    (comment 1 "io is not paged. note that the mapper registers will always read 0 after reset!")
+    (comment 2 "pages 0-3 match to the default layout from 0x0000:ffff")
+    (comment 3 "we need to do this so that the nabu can boot from rom normally")
+    (comment 4 "upon reset we latch out the mapper registers and force in system default pages")
   )
 
   (lib_symbols

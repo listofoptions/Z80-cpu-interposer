@@ -9,6 +9,10 @@
     (date "2022-10-21")
     (rev "1030211022")
     (company "LISTOFOPTIONS")
+    (comment 1 "the selector mux here determines which set page the processor is accessing")
+    (comment 2 "pages 0..3 are system default pages, 4..127 are rom, and 128..256 are ram")
+    (comment 3 "there are 256 pages of memory, each assignable to one of the 4 sections")
+    (comment 4 "memory is broken up into 4 sections of 16k (AB_{15}..AB_{14} determine page requested)")
   )
 
   (lib_symbols
@@ -1271,12 +1275,6 @@
   (wire (pts (xy 177.8 132.08) (xy 165.1 132.08))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid fdf8094a-e7b1-4435-aede-d2e816c8447a)
-  )
-
-  (text "THE MEMORY ADDRESS SPACE IS BROKEN UP INTO 4 \"PAGES\" OF 16K.\nTHE FRST 4 PAGES OF SPACE DIRECTLY CORRESPOND TO THE\nEXISTING HARDWARE. FOR EACH MEMORY ACCESS WE DETERMINE USING\nTHE MAPPER HARDWARE WHICH ONE OF 4 PAGE REGISTERS TO PLACE ON\nTHE BANK BUS (IBB). "
-    (at 176.53 166.37 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 3cbd21e2-e0d6-478d-b1a5-45d023e3c652)
   )
 
   (label "AB_{3}" (at 193.04 81.28 0)

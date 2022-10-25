@@ -9,6 +9,7 @@
     (date "2022-10-21")
     (rev "1030211022")
     (company "LISTOFOPTIONS")
+    (comment 4 "rom is paged in on pages 4..127, and is in lower memory")
   )
 
   (lib_symbols
