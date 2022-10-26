@@ -2146,9 +2146,6 @@
     (path "/bfed3eaf-37d2-442e-8baa-ce241bc80bc3/7ceee705-dc44-4c9f-9396-cef4d9a7c526"
       (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
     )
-    (path "/749f9fb9-0073-4838-99b0-f7c99bff357c/7d45c834-078e-4ef1-ae54-101a4fc9ecc5"
-      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
-    )
     (path "/749f9fb9-0073-4838-99b0-f7c99bff357c/7e18c431-e59b-458e-88d3-844e2b415feb"
       (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
     )
@@ -2309,9 +2306,6 @@
       (reference "#PWR?") (unit 1) (value "+3V3") (footprint "")
     )
     (path "/bfed3eaf-37d2-442e-8baa-ce241bc80bc3/aacc4793-ee68-4725-8348-b0e99c07d7c1"
-      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
-    )
-    (path "/749f9fb9-0073-4838-99b0-f7c99bff357c/abcfb5d7-fc10-44be-8c3e-f247822d9bc8"
       (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
     )
     (path "/7d982964-ddff-4a6a-b96b-f7c36b3846c0/ad1e1ea5-0fda-4ac1-b8e1-8c5155bbe22d"
@@ -2886,9 +2880,6 @@
     )
     (path "/99a84434-d1c7-49a7-8f43-d52d57d6e715/94cbe769-673f-4b85-b053-5ec791914fcf"
       (reference "U?") (unit 1) (value "74LVC1G32") (footprint "")
-    )
-    (path "/749f9fb9-0073-4838-99b0-f7c99bff357c/9762bb61-c599-4e60-8d0c-2448f5c6e0d4"
-      (reference "U?") (unit 1) (value "74LVC1G04") (footprint "")
     )
     (path "/a56bd835-5210-4a5d-913a-91f46ae9d0de/9d964140-2c75-416a-b89a-1dcde2a3ffdb"
       (reference "U?") (unit 1) (value "TXB0104D") (footprint "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm")
