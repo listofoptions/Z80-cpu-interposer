@@ -428,28 +428,16 @@
       "BRAINS"
     ],
     [
-      "749f9fb9-0073-4838-99b0-f7c99bff357c",
-      "MAPPER"
+      "9b26f0ed-4aa2-41f9-8823-e922cbe004ee",
+      "TIMER"
     ],
     [
-      "500495b8-8582-4d54-84bf-8f9cde2338ff",
-      "MUX"
-    ],
-    [
-      "bfed3eaf-37d2-442e-8baa-ce241bc80bc3",
-      "DEV PORT"
+      "edaf29b5-397c-41b7-a0c5-a822a2719b9f",
+      "GLUE"
     ],
     [
       "7a323690-779c-4dc0-abb7-a5c34072dbb0",
       "DMA"
-    ],
-    [
-      "7d982964-ddff-4a6a-b96b-f7c36b3846c0",
-      "RESET"
-    ],
-    [
-      "99a84434-d1c7-49a7-8f43-d52d57d6e715",
-      "DECODE"
     ]
   ],
   "text_variables": {}

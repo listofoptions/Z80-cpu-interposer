@@ -2633,7 +2633,7 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid db90d3cd-6b29-4eb3-9590-04a25a18dbff)
   )
-  (hierarchical_label "~{RAMEN}" (shape input) (at 201.93 58.42 180)
+  (hierarchical_label "~{RAM}" (shape input) (at 201.93 58.42 180)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid e2c184f2-9d37-4634-bd6d-8a9ebea161f2)
   )
