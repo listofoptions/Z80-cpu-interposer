@@ -357,7 +357,6 @@
     )
   )
 
-
   (junction (at 173.355 68.58) (diameter 0) (color 0 0 0 0)
     (uuid 14dfafb8-94d6-4c23-8a8c-211e75f07a75)
   )
@@ -889,7 +888,7 @@
     (uuid 15ff30b4-fa7d-47b2-86d1-977a7d37d600)
     (property "Reference" "U1" (id 0) (at 213.36 138.43 0))
     (property "Value" "LP3963-3.3" (id 1) (at 213.36 140.97 0))
-    (property "Footprint" "" (id 2) (at 213.36 148.59 0)
+    (property "Footprint" "Package_TO_SOT_SMD:TO-263-5_TabPin3" (id 2) (at 213.36 148.59 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.ti.com/lit/ds/symlink/lp3966.pdf" (id 3) (at 213.36 148.59 0)
@@ -999,7 +998,7 @@
     (property "Value" "5V EXTRA" (id 1) (at 265.43 154.9399 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (id 2) (at 262.89 153.67 0)
+    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" (id 2) (at 262.89 153.67 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 262.89 153.67 0)
@@ -1018,7 +1017,7 @@
     (property "Value" "100U TANT" (id 1) (at 233.68 151.9681 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (id 2) (at 231.14 151.13 0)
+    (property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3528-15_AVX-H" (id 2) (at 231.14 151.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 231.14 151.13 0)
@@ -1069,7 +1068,7 @@
     (property "Value" "100U TANT" (id 1) (at 195.58 151.9681 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (id 2) (at 193.04 151.13 0)
+    (property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3528-15_AVX-H" (id 2) (at 193.04 151.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 193.04 151.13 0)
@@ -1148,6 +1147,14 @@
     (pin "DB[0..7]" bidirectional (at 63.5 66.04 180)
       (effects (font (size 1.27 1.27)) (justify left))
       (uuid 3538e4b7-3226-48e0-aec2-91f8904db6db)
+    )
+    (pin "~{SYS}" input (at 63.5 53.34 180)
+      (effects (font (size 1.27 1.27)) (justify left))
+      (uuid 1610789e-45c5-4f58-a053-fe8b32b5fec3)
+    )
+    (pin "~{RFSH}" output (at 88.9 45.72 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+      (uuid 054cf262-4ce0-4b44-9048-d33bcf0f3831)
     )
   )
 
@@ -2576,6 +2583,54 @@
     (path "/bfed3eaf-37d2-442e-8baa-ce241bc80bc3/5bd5fdec-ad56-4e3c-8019-086e46467982"
       (reference "#PWR0322") (unit 1) (value "GNDD") (footprint "")
     )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/0f8ece08-65a5-4c8f-9f74-c1183875807a"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/4b0be4c5-db81-4d61-b2e8-d311632c350f"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/55dd29f1-bccc-4732-8255-1b2bf39caed5"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/5b4e7db3-9a7b-4d94-9c0a-3b766cb31ff3"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/6f8baf8a-28a9-413d-9142-6cf1a8994adf"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/74ecf149-cc35-4150-8b9a-fcf24f865b97"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/9ec5f3f5-c855-4a93-884e-c35b526be0b0"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/9f9fffa9-f707-4ae4-86b1-1de6d3ab243e"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/a38be6a6-6709-4e3b-94c6-1d07a7a47c07"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/af0c3b39-f948-463b-b85a-f2b997d9ac96"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/cf6c44f9-ae33-4768-98b6-e9bf035b12a2"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/d7f5ed70-e933-478e-bfdc-450d0e05c7a0"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/dcec817c-a584-4dd8-9bbf-3c5b70201944"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/e7780d32-85a1-4157-ad52-2e42e94b28cd"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/f9353a2e-262c-4639-8e7c-675fee4a0117"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/fff1e5d9-44d0-4aaa-92fd-20e1e171bf39"
+      (reference "#PWR?") (unit 1) (value "GNDD") (footprint "")
+    )
     (path "/ed39334a-848a-4da5-a2cc-a2eddeab4ea4"
       (reference "C1") (unit 1) (value "100U TANT") (footprint "Capacitor_Tantalum_SMD:CP_EIA-3528-15_AVX-H")
     )
@@ -2689,6 +2744,12 @@
     )
     (path "/99a84434-d1c7-49a7-8f43-d52d57d6e715/e0169614-7617-4c30-b6c8-4882f3d744d4"
       (reference "C38") (unit 1) (value "0U1") (footprint "Capacitor_SMD:C_0603_1608Metric")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/718520aa-c12a-4fff-b041-a6ca5784dded"
+      (reference "C?") (unit 1) (value "0U1") (footprint "Capacitor_SMD:C_1206_3216Metric")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/f8d511c4-fa04-4f04-9035-33c00c00c2bc"
+      (reference "C?") (unit 1) (value "0U1") (footprint "Capacitor_SMD:C_1206_3216Metric")
     )
     (path "/bfed3eaf-37d2-442e-8baa-ce241bc80bc3/222c9f64-d02f-44cc-a35f-64a1b4ae84b7"
       (reference "D1") (unit 1) (value "BAT48JFILM") (footprint "Diode_SMD:D_SOD-323")
@@ -2974,6 +3035,18 @@
     )
     (path "/99a84434-d1c7-49a7-8f43-d52d57d6e715/f66f0557-e806-4cae-8c3f-89602ee5d98d"
       (reference "U74") (unit 1) (value "74LVC1G332") (footprint "Package_TO_SOT_SMD:SOT-363_SC-70-6")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/5e1ccda5-a997-475c-a565-10e978d13def"
+      (reference "U?") (unit 1) (value "74HC245") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/91e7e6ed-6011-4433-ae7c-0361915708f8"
+      (reference "U?") (unit 1) (value "74HC245") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/c842e4bb-545a-40bf-94ca-429823194d9b"
+      (reference "U?") (unit 1) (value "74HC245") (footprint "")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/f6192cdc-45d6-42b7-9bfa-a2eb86d8f3bd"
+      (reference "U?") (unit 1) (value "74HC245") (footprint "")
     )
   )
 )

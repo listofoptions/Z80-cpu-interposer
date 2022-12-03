@@ -1,3 +1,6 @@
 *.bak
 *-backups
 *.kicad*-bak
+fp-info-cache
+*.pdf
+\#auto_saved_files\#
