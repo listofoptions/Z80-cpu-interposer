@@ -3,7 +3,8 @@ use ieee.numeric_std.all ;
 use ieee.std_logic_1164.all ;
 
 entity BANK_DEVICE is
-    port ( WR      : in  std_logic -- active low
+    port ( M1      : in  std_logic -- active low
+         ; WR      : in  std_logic -- active low
          ; RD      : in  std_logic -- active low
          ; MREQ    : in  std_logic -- active low
          ; IOREQ   : in  std_logic -- active low
@@ -73,7 +74,7 @@ begin
     end generate ;
     
     crtl_reg    <=   DATA(7 downto 6) when (nand_reduce(ADDRESS(7 downto 0)) or (io_acc or WR)) = '0' 
-                else crtl_reg
+                else crtl_reg ;
     
     bank_addr   <=   bank(0) when (ADDRESS(15 downto 14) = "00") 
                 else bank(1) when (ADDRESS(15 downto 14) = "01") 

@@ -4,3 +4,6 @@
 fp-info-cache
 *.pdf
 \#auto_saved_files\#
+VHDL/*.o
+VHDL/*.cf
+VHDL/bank_device
