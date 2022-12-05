@@ -10,6 +10,5 @@
   (lib (name "Zilog_Z80000")(type "KiCad")(uri "${KIPRJMOD}/libraries/Z80-CPU-for-KiCAD/Zilog_Z80000.kicad_sym")(options "")(descr ""))
   (lib (name "zilogback")(type "KiCad")(uri "${KIPRJMOD}/libraries/Z80-CPU-for-KiCAD/zilogback.kicad_sym")(options "")(descr ""))
   (lib (name "zilogfront")(type "KiCad")(uri "${KIPRJMOD}/libraries/Z80-CPU-for-KiCAD/zilogfront.kicad_sym")(options "")(descr ""))
-  (lib (name "teensy")(type "Legacy")(uri "${KIPRJMOD}/libraries/teensy_library/teensy.lib")(options "")(descr ""))
   (lib (name "ATF150x")(type "KiCad")(uri "${KIPRJMOD}/libraries/ATF150x.kicad_sym")(options "")(descr ""))
 )

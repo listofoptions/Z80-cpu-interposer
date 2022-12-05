@@ -1,4 +1,3 @@
 (fp_lib_table
   (lib (name "Zilog")(type "KiCad")(uri "${KIPRJMOD}/libraries/Z80-CPU-for-KiCAD/Zilog.pretty")(options "")(descr ""))
-  (lib (name "teensy")(type "KiCad")(uri "${KIPRJMOD}/libraries/teensy.pretty")(options "")(descr ""))
 )
