@@ -13,6 +13,7 @@ entity BANK_DEVICE is
          ; ADDRESS : in  std_logic_vector(15 downto 0) -- active high
          ; DATA    : in  std_logic_vector( 7 downto 0) -- active high
          ; EXTEND  : out std_logic_vector(21 downto 0) -- active high
+         ; SYS_DIR : out std_logic -- active low
          ; SYS_ACC : out std_logic -- active low
          ; RAM_ACC : out std_logic -- active low
          ; ROM_ACC : out std_logic -- active low
@@ -37,20 +38,11 @@ architecture BEHAVIOR of BANK_DEVICE is
     
     signal bank_addr  : std_logic_vector(7 downto 0) ;
     
-    function nor_reduce(arg : std_logic_vector) return std_logic is
+    function or_reduce(arg : std_logic_vector) return std_logic is
         variable temp : std_logic := '0' ;
     begin
         for i in arg'range loop 
-            temp := temp nor arg(i) ;
-        end loop ;
-        return temp ;
-    end ;
-    
-    function nand_reduce(arg : std_logic_vector) return std_logic is
-        variable temp : std_logic := '1' ;
-    begin
-        for i in arg'range loop 
-            temp := temp nand arg(i) ;
+            temp := temp or arg(i) ;
         end loop ;
         return temp ;
     end ;
@@ -81,12 +73,13 @@ begin
                 else bank(2) when (ADDRESS(15 downto 14) = "10") 
                 else bank(3) ;
     
-    port_F      <=   io_acc or nand_reduce(ADDRESS(7 downto 4)) ;
+    port_F      <=   io_acc or not and_reduce(ADDRESS(7 downto 4)) ;
     io_acc      <=   IOREQ or not M1 ;
     bank_acc    <=   port_F or (ADDRESS(3) nand ADDRESS(2)) ;   -- IO:0xFC:4
     tim_acc     <=   ((port_F or ADDRESS(3)) or rd) and ((port_F or ADDRESS(3)) or wr) ; 
     
-    SYS_ACC     <=   and_reduce((IOREQ or M1) & port_F & (nor_reduce(bank_addr(7 downto 2)) or MREQ) & REFRESH);
+    SYS_ACC     <=   and_reduce((IOREQ or M1) & port_F & (not or_reduce(bank_addr(7 downto 2)) or MREQ) & REFRESH) ;
+    SYS_DIR     <=   '1' when (WR = '0') else '0' when (RD = '0') else 'Z';
     RAM_ACC     <=   MREQ or not bank_addr(7) ;                 -- 128 pages of ram
     ROM_ACC     <=   MREQ or bank_addr(7) ;                     -- 128 - 4 pages of rom
     TI0_ACC     <=   tim_acc or ADDRESS(2) ;                    -- IO:0xF0:4

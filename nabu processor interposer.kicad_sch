@@ -569,6 +569,10 @@
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 529f8453-d562-4e6e-9360-dabc07d083eb)
   )
+  (wire (pts (xy 63.5 38.1) (xy 127 38.1))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 574b1deb-60af-4b99-b1be-f03614f117ad)
+  )
   (wire (pts (xy 248.285 25.4) (xy 254 25.4))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 601d91d2-dcfb-48fd-b0c4-fe28765d672e)
@@ -1031,6 +1035,10 @@
       (effects (font (size 1.27 1.27)) (justify right))
       (uuid 93be0459-280d-4c3f-b12e-16b097b923e5)
     )
+    (pin "DIR" input (at 63.5 38.1 180)
+      (effects (font (size 1.27 1.27)) (justify left))
+      (uuid be572f1d-d2a8-4c55-bbad-8b37f5a015e1)
+    )
   )
 
   (sheet (at 177.8 19.05) (size 25.4 50.8) (fields_autoplaced)
@@ -1287,6 +1295,10 @@
       (effects (font (size 1.27 1.27)) (justify left))
       (uuid 215bfead-d397-4cc3-83ea-bb52d6a5566d)
     )
+    (pin "DIR" tri_state (at 127 38.1 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+      (uuid 6699bb4c-e4d5-435e-9693-9c0516d322ad)
+    )
   )
 
   (sheet_instances
@@ -1491,9 +1503,6 @@
     )
     (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/1fcc6f99-05ee-403a-a1fd-9b45f994339f"
       (reference "#PWR066") (unit 1) (value "+5V") (footprint "")
-    )
-    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/e7780d32-85a1-4157-ad52-2e42e94b28cd"
-      (reference "#PWR067") (unit 1) (value "GNDD") (footprint "")
     )
     (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/f0bd75ac-bfa3-4ab3-a163-f5074bbe7860"
       (reference "#PWR068") (unit 1) (value "+5V") (footprint "")
