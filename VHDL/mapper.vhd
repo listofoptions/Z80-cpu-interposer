@@ -2,26 +2,29 @@ library ieee;
 use ieee.numeric_std.all ;
 use ieee.std_logic_1164.all ;
 
-
+-- *_n or *_N are active low signals
+-- yyeeeeessss vhdl is case iNsEnSiTiVe and YES its annoying, but for sanity, lets assume all external facing pins are
+-- in caps, and all internal only wires/signals/registers etc... are in lower case; ghdl will still barf if you try
+-- and produce a signal that has the same name as a port signal so eh, nice i guess?
 
 entity BANK_DEVICE is
-    port ( M1      : in  std_logic -- active low
-         ; WR      : in  std_logic -- active low
-         ; RD      : in  std_logic -- active low
-         ; MREQ    : in  std_logic -- active low
-         ; IOREQ   : in  std_logic -- active low
-         ; RESET   : in  std_logic -- active low
-         ; REFRESH : in  std_logic -- active low
-         ; ADDRESS : in  std_logic_vector(15 downto 0) -- active high
-         ; DATA    : in  std_logic_vector( 7 downto 0) -- active high
-         ; EXTEND  : out std_logic_vector(21 downto 0) -- active high
-         ; SYS_DIR : out std_logic -- active low
-         ; SYS_ACC : out std_logic -- active low
-         ; RAM_ACC : out std_logic -- active low
-         ; ROM_ACC : out std_logic -- active low
-         ; TI0_ACC : out std_logic -- active low
-         ; TI1_ACC : out std_logic -- active low
-         ; DMA_ACC : out std_logic -- active low
+    port ( M1_N      : in  std_logic -- active low
+         ; WR_N      : in  std_logic -- active low
+         ; RD_N      : in  std_logic -- active low
+         ; MREQ_N    : in  std_logic -- active low
+         ; IOREQ_N   : in  std_logic -- active low
+         ; RESET_N   : in  std_logic -- active low
+         ; REFRESH_N : in  std_logic -- active low
+         ; ADDRESS   : in  std_logic_vector(15 downto 0) -- active high
+         ; DATA      : in  std_logic_vector( 7 downto 0) -- active high
+         ; EXTEND    : out std_logic_vector(21 downto 0) -- active high
+         ; SYS_DIR_N : out std_logic -- active low
+         ; SYS_ACC_N : out std_logic -- active low
+         ; RAM_ACC_N : out std_logic -- active low
+         ; ROM_ACC_N : out std_logic -- active low
+         ; TI0_ACC_N : out std_logic -- active low
+         ; TI1_ACC_N : out std_logic -- active low
+         ; DMA_ACC_N : out std_logic -- active low
          ) ;
 end BANK_DEVICE ;
 
@@ -31,10 +34,10 @@ architecture BEHAVIOR of BANK_DEVICE is
     type   register_bank is array (3 downto 0) of std_logic_vector(7 downto 0) ;
     type   written_flags is array (3 downto 0) of std_logic ;
     
-    signal io_acc     : std_logic ;
-    signal bank_acc   : std_logic ;
-    signal port_F     : std_logic ;
-    signal tim_acc    : std_logic ;
+    signal io_acc_n   : std_logic ;
+    signal bank_acc_n : std_logic ;
+    signal port_F_n   : std_logic ;
+    signal tim_acc_n  : std_logic ;
     
     signal flags      : written_flags ;
     signal bank       : register_bank ;
@@ -61,15 +64,15 @@ architecture BEHAVIOR of BANK_DEVICE is
     end ;
 begin
     internal_state : for i in 3 downto 0 generate
-        flags(i)<=   '0'  when (reset = '0')
-                else '1'  when ((bank_acc or WR) = '0') and (ADDRESS(15 downto 14) = std_logic_vector(to_unsigned(i, 2)))
+        flags(i)<=   '0'  when (RESET_N = '0')
+                else '1'  when ((bank_acc_n or WR_N) = '0') and (ADDRESS(15 downto 14) = std_logic_vector(to_unsigned(i, 2)))
                 else flags(i) ;
-        bank(i) <=   std_logic_vector(to_unsigned(i, 8)) when (reset = '0')
-                else DATA when ((bank_acc or WR) = '0') and (ADDRESS(15 downto 14) = std_logic_vector(to_unsigned(i, 2)))
+        bank(i) <=   std_logic_vector(to_unsigned(i, 8)) when (RESET_N = '0')
+                else DATA when ((bank_acc_n or WR_N) = '0') and (ADDRESS(15 downto 14) = std_logic_vector(to_unsigned(i, 2)))
                 else bank(i) ;
     end generate ;
     
-    crtl_reg    <=   DATA(7 downto 6) when (not and_reduce(ADDRESS(7 downto 0)) or (io_acc or WR)) = '0' 
+    crtl_reg    <=   DATA(7 downto 6) when (not and_reduce(ADDRESS(7 downto 0)) or (io_acc_n or WR_N)) = '0' 
                 else crtl_reg ;
     
     bank_addr   <=   bank(0) when (ADDRESS(15 downto 14) = "00") 
@@ -77,18 +80,18 @@ begin
                 else bank(2) when (ADDRESS(15 downto 14) = "10") 
                 else bank(3) ;
     
-    port_F      <=   io_acc or not and_reduce(ADDRESS(7 downto 4)) ;
-    io_acc      <=   IOREQ or not M1 ;
-    bank_acc    <=   port_F or (ADDRESS(3) nand ADDRESS(2)) ;   -- IO:0xFC:4
-    tim_acc     <=   ((port_F or ADDRESS(3)) or rd) and ((port_F or ADDRESS(3)) or wr) ; 
+    port_F_n    <=   io_acc_n or not and_reduce(ADDRESS(7 downto 4)) ;
+    io_acc_n    <=   IOREQ_N or not M1_N ;
+    bank_acc_n  <=   port_F_n or (ADDRESS(3) nand ADDRESS(2)) ;   -- IO:0xFC:4
+    tim_acc_n   <=   ((port_F_n or ADDRESS(3)) or RD_N) and ((port_F_n or ADDRESS(3)) or WR_N) ; 
     
-    SYS_ACC     <=   and_reduce((IOREQ or M1) & port_F & (not or_reduce(bank_addr(7 downto 2)) or MREQ) & REFRESH) ;
-    SYS_DIR     <=   '0' when (WR = '0') else '1' when (RD = '0') else '1';
-    RAM_ACC     <=   MREQ or not bank_addr(7) ;                 -- 128 pages of ram
-    ROM_ACC     <=   MREQ or bank_addr(7) ;                     -- 128 - 4 pages of rom
-    TI0_ACC     <=   tim_acc or ADDRESS(2) ;                    -- IO:0xF0:4
-    TI1_ACC     <=   tim_acc or not ADDRESS(2) ;                -- IO:0xF4:4
-    DMA_ACC     <=   port_F or (ADDRESS(3) or not ADDRESS(2)) ; -- IO:0xF8:4
+    SYS_ACC_N   <=   and_reduce(IOREQ_N & (not or_reduce(bank_addr(7 downto 2)) or MREQ_N) & REFRESH_N) ;
+    SYS_DIR_N   <=   '0' when (WR_N = '0') else '1' when (RD_N = '0') else '1';
+    RAM_ACC_N   <=   MREQ_N or not bank_addr(7) ;                 -- 128 pages of ram
+    ROM_ACC_N   <=   MREQ_N or bank_addr(7) ;                     -- 128 - 4 pages of rom
+    TI0_ACC_N   <=   tim_acc_N or ADDRESS(2) ;                    -- IO:0xF0:4
+    TI1_ACC_N   <=   tim_acc_N or not ADDRESS(2) ;                -- IO:0xF4:4
+    DMA_ACC_N   <=   port_F_n or (ADDRESS(3) or not ADDRESS(2)) ; -- IO:0xF8:4
     
     EXTEND      <=   bank_addr & ADDRESS(13 downto 0) ;
 end BEHAVIOR ;
