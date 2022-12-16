@@ -2,6 +2,8 @@ library ieee;
 use ieee.numeric_std.all ;
 use ieee.std_logic_1164.all ;
 
+
+
 entity BANK_DEVICE is
     port ( M1      : in  std_logic -- active low
          ; WR      : in  std_logic -- active low
@@ -22,6 +24,8 @@ entity BANK_DEVICE is
          ; DMA_ACC : out std_logic -- active low
          ) ;
 end BANK_DEVICE ;
+
+
 
 architecture BEHAVIOR of BANK_DEVICE is
     type   register_bank is array (3 downto 0) of std_logic_vector(7 downto 0) ;
@@ -65,7 +69,7 @@ begin
                 else bank(i) ;
     end generate ;
     
-    crtl_reg    <=   DATA(7 downto 6) when (nand_reduce(ADDRESS(7 downto 0)) or (io_acc or WR)) = '0' 
+    crtl_reg    <=   DATA(7 downto 6) when (not and_reduce(ADDRESS(7 downto 0)) or (io_acc or WR)) = '0' 
                 else crtl_reg ;
     
     bank_addr   <=   bank(0) when (ADDRESS(15 downto 14) = "00") 
@@ -79,7 +83,7 @@ begin
     tim_acc     <=   ((port_F or ADDRESS(3)) or rd) and ((port_F or ADDRESS(3)) or wr) ; 
     
     SYS_ACC     <=   and_reduce((IOREQ or M1) & port_F & (not or_reduce(bank_addr(7 downto 2)) or MREQ) & REFRESH) ;
-    SYS_DIR     <=   '1' when (WR = '0') else '0' when (RD = '0') else 'Z';
+    SYS_DIR     <=   '0' when (WR = '0') else '1' when (RD = '0') else '1';
     RAM_ACC     <=   MREQ or not bank_addr(7) ;                 -- 128 pages of ram
     ROM_ACC     <=   MREQ or bank_addr(7) ;                     -- 128 - 4 pages of rom
     TI0_ACC     <=   tim_acc or ADDRESS(2) ;                    -- IO:0xF0:4
