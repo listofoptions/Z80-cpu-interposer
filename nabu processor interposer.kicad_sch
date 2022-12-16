@@ -1411,6 +1411,9 @@
     (path "/a56bd835-5210-4a5d-913a-91f46ae9d0de/9c7b66de-5a57-4bc7-9e7d-721b91b4f1a0"
       (reference "#PWR030") (unit 1) (value "GNDD") (footprint "")
     )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/bb137daa-486f-429e-b7df-30382c63f5df"
+      (reference "#PWR031") (unit 1) (value "+5V") (footprint "")
+    )
     (path "/a56bd835-5210-4a5d-913a-91f46ae9d0de/788e5535-7fdd-4e12-a7a4-64e1762d5b7e"
       (reference "#PWR036") (unit 1) (value "GNDD") (footprint "")
     )
@@ -1782,6 +1785,9 @@
     )
     (path "/edaf29b5-397c-41b7-a0c5-a822a2719b9f/d91b456a-f3e0-43ba-9cb7-46edc063d27a"
       (reference "R4") (unit 1) (value "10K") (footprint "Resistor_SMD:R_0603_1608Metric")
+    )
+    (path "/320705d8-4d7c-4302-8b3e-dbe54aa69e95/22a326ee-3171-4ae8-93e3-63fcb1acc39f"
+      (reference "R5") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0603_1608Metric")
     )
     (path "/15ff30b4-fa7d-47b2-86d1-977a7d37d600"
       (reference "U1") (unit 1) (value "LP3963-3.3") (footprint "Package_TO_SOT_SMD:TO-263-5_TabPin3")
