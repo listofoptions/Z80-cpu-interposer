@@ -8,3 +8,4 @@ fp-info-cache
 VHDL/*.o
 VHDL/*.cf
 VHDL/bank_device
+VHDL/test_bench
