@@ -41,13 +41,13 @@ architecture BEHAVIOR of TEST_BENCH is
     signal data_test                               : std_logic_vector( 7 downto 0) ;
     signal m1_test_n, wr_test_n, rd_test_n
          , mreq_test_n, ioreq_test_n, reset_test_n
-         , refresh_test_n                          : std_logic ;
+         , refresh_test_n, boottype_test_n         : std_logic ;
     -- signals to be driven
     signal extend_test                             : std_logic_vector( 7 downto 0) ;
     signal sys_test_dir_n, sys_test_acc_n
-         , ram_test_acc_n, rom_test_acc_n
-         , ti0_test_acc_n, ti1_test_acc_n
-         , dma_test_acc_n                          : std_logic ;
+         , ram_test_acc_n, ti0_test_acc_n
+         , ti1_test_acc_n, dma_test_acc_n
+         , netboot_test_n, ramboot_test_n          : std_logic ;
 begin
 
     DUT : entity work.BANK_DEVICE(BEHAVIOR)
@@ -58,7 +58,8 @@ begin
                  , IOREQ_N    => ioreq_test_n
                  , RESET_N    => reset_test_n
                  , REFRESH_N  => refresh_test_n
-                 , ADDRESS    => address_test(7 downto 2)
+                 , BOOTTYPE   => boottype_test_n
+                 , ADDRESS    => address_test(7 downto 0)
                  , ADDRESS_15 => address_test(15)
                  , ADDRESS_14 => address_test(14)
                  , DATA       => data_test
@@ -66,10 +67,11 @@ begin
                  , SYS_DIR_N  => sys_test_dir_n
                  , SYS_ACC_N  => sys_test_acc_n
                  , RAM_ACC_N  => ram_test_acc_n
-                 , ROM_ACC_N  => rom_test_acc_n
                  , TI0_ACC_N  => ti0_test_acc_n
                  , TI1_ACC_N  => ti1_test_acc_n
                  , DMA_ACC_N  => dma_test_acc_n
+                 , NETBOOT_N  => netboot_test_n
+                 , RAMBOOT_N  => ramboot_test_n
                  ) ;
     
     stimulus: process
@@ -84,9 +86,7 @@ begin
         --      access to system on mem write
         --      access to system on refresh
         -- interposer memory access test:
-        --      access to interposer rom read fail
         --      access to interposer ram read fail
-        --      access to interposer rom write fail
         --      access to interposer ram write fail
         -- ti0 access test:
         --      io read access
@@ -106,10 +106,8 @@ begin
         --      previously written banks match when accessed
         --      unwritten bank registers maintain same value
         -- interposer memory access test:
-        --      access to interposer rom read pass
-        --      access to interposer ram read pass
-        --      access to interposer rom write pass
         --      access to interposer ram write pass
+        --      access to interposer ram read pass
         -- ti0 access test:
         --      io read access
         --      io write access

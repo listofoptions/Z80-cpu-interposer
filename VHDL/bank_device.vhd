@@ -39,7 +39,8 @@ entity BANK_DEVICE is
          ; IOREQ_N    : in  std_logic -- active low
          ; RESET_N    : in  std_logic -- active low
          ; REFRESH_N  : in  std_logic -- active low
-         ; ADDRESS    : in  std_logic_vector(7 downto 2) -- active high
+         ; BOOTTYPE   : in  std_logic -- active high
+         ; ADDRESS    : in  std_logic_vector(7 downto 0) -- active high
          ; ADDRESS_15 : in  std_logic -- active high
          ; ADDRESS_14 : in  std_logic -- active high
          ; DATA       : in  std_logic_vector(7 downto 0) -- active high
@@ -47,10 +48,11 @@ entity BANK_DEVICE is
          ; SYS_DIR_N  : out std_logic -- active low
          ; SYS_ACC_N  : out std_logic -- active low
          ; RAM_ACC_N  : out std_logic -- active low
-         ; ROM_ACC_N  : out std_logic -- active low
          ; TI0_ACC_N  : out std_logic -- active low
          ; TI1_ACC_N  : out std_logic -- active low
          ; DMA_ACC_N  : out std_logic -- active low
+         ; NETBOOT_N  : out std_logic -- active low
+         ; RAMBOOT_N  : out std_logic -- active low
          ) ;
 end BANK_DEVICE ;
 
@@ -75,7 +77,7 @@ begin
                      -- the above line does the magic (yaaay types!) of taking our iteration index and making it the 
                      -- constant to use in reseting
                 else DATA when ((bank_acc_n or WR_N) = '0') 
-                           and ((ADDRESS_15 & ADDRESS_14) = std_logic_vector(to_unsigned(i, 2)))
+                           and ((ADDRESS(1) & ADDRESS(0)) = std_logic_vector(to_unsigned(i, 2)))
                      -- if we arent currently reseting, we assume we should be writing the databus to the bank
                      -- register of choice (modulo ioreq and wr)
                 else bank(i) ;
@@ -93,6 +95,12 @@ begin
     port_F_n    <=   (IOREQ_N or not M1_N) or not and_reduce(ADDRESS(7 downto 4)) ;
     -- IO:0xFC:4 - bank registers, write only
     bank_acc_n  <=   port_F_n or (ADDRESS(3) nand ADDRESS(2)) ; 
+    -- IO:0xFC:4 - reads to bank registers get handled so that they act as toggles for setting boottype
+    -- IO:0xFC reads will toggle the netboot pin
+    NETBOOT_N   <=   or_reduce(bank_acc_n & RD_N & ADDRESS(1) & ADDRESS(0)) ;
+    -- IO:0xFF reads will toggle the ramboot pin
+    -- reads to registers outside of these will not have an effect
+    RAMBOOT_N   <=   or_reduce(bank_acc_n & RD_N & (ADDRESS(1) nand ADDRESS(0))) ;
     -- IO:0xF8:4 - dma controllers, bidirectional, bus-mastering
     DMA_ACC_N   <=   port_F_n or (ADDRESS(3) or not ADDRESS(2)) ;
     -- IO:0xF4:4 - timer/counter 1, bidirectional, controls timed dma on dma controllers 2 and 3, remainging timers
@@ -104,19 +112,19 @@ begin
     tim_acc_n   <=   ((port_F_n or ADDRESS(3)) or RD_N) and ((port_F_n or ADDRESS(3)) or WR_N) ; 
     
     -- of the 256 pages of banked memory (*not* IO, we may bank io in the future but we dont now!)
-    -- the first four pages (0,1,2,3) are reserved and mapped to the system, as is any IO access.
-    -- (the latter implies that another device could knock the interposer off of the cpu bus if it isnt fast enough 
-    -- i thinK)
+    -- the first four pages (0,1,2,3) are reserved and mapped to the system if boottype is active, as is any IO access.
     -- if there is an io operation, or if the bank is 0-3 (and its a memory operation), or if refresh is occuring;
     -- then we need to open access through the interposers buffers to the rest of the system dropping the high Z state
-    SYS_ACC_N   <=   and_reduce(IOREQ_N & (not or_reduce(bank_addr(7 downto 2)) or MREQ_N) & REFRESH_N) ;
+    -- if the boottype pin is inactive, system access is only permitted during IO operations, refresh and banking are
+    -- ignored.
+    SYS_ACC_N   <=   and_reduce(IOREQ_N & (not or_reduce(bank_addr(7 downto 2)) or MREQ_N) & REFRESH_N)
+                when (BOOTTYPE = '1') 
+                else IOREQ_N ;
     -- if we're writing, (or possibly reading and writing!?!?!) then bypass into the interposer bus; otherwise
     -- if we're reading (or we're neither reading or writing) then we bypass the interposer bus to the system
     SYS_DIR_N   <=   '0' when (WR_N = '0') else '1' when (RD_N = '0') else '1' ;
-    -- we further subdivide the remaining banks so that the lower 124 (128 - 4) are rom (possibly ram in later revs)
-    ROM_ACC_N   <=   MREQ_N or bank_addr(7) ;                     -- 128 - 4 pages of rom
-    -- and the remainging 128 pages are all marked ram
-    RAM_ACC_N   <=   MREQ_N or not bank_addr(7) ;                 -- 128 pages of ram
+    -- and the remaining 256 - 4 pages are all marked ram
+    RAM_ACC_N   <=   MREQ_N or not bank_addr(7) ;
     
     EXTEND      <=   bank_addr ;
 end BEHAVIOR ;
